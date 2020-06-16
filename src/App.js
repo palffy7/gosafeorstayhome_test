@@ -66,8 +66,8 @@ function App() {
     deleteToken(['mr-token']);
   }
 
-  if(loading) return <h1>Loading...</h1>
-  if(error) return <h1>Error loading movies!</h1>
+  if(loading) return <div className="App"><h1>Loading...</h1></div>
+  if(error) return <div className="App"><h1>Error loading movies!</h1></div>
   return (
     <div className="App">
       <header className="App-header">

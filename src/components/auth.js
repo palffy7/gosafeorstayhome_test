@@ -15,16 +15,27 @@ function Auth() {
         if(token['mr-token']) window.location.href='/movies';
     }, [token])
 
+    const handleLoginError = (resp) => {
+        console.log('test')
+        console.log(resp)
+        if(resp.token){
+            setToken('mr-token', resp.token)
+        }else{
+            console.error('error login')
+        }
+    }
+
     const loginClicked = () => {
         API.loginUser({username, password})
-        .then( resp => setToken('mr-token', resp.token))
+        //.then(resp => console.log(resp))
+        .then( resp => handleLoginError(resp))
         .catch( error => console.log(error))
     }
 
     const registerClicked = () => {
         API.registerUser({username, password})
         .then( resp => loginClicked())
-        .catch( error => console.log(error))
+        .catch( error => console.log('Error:' + error))
     }
 
     const isDisabled = username.length === 0 || password.length === 0;
