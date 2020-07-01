@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Home from './Home';
 import Auth from './components/auth';
 import * as serviceWorker from './serviceWorker';
 import { Route, BrowserRouter } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
+import QRCode from './QRCode';
 
 function Router() {
 
@@ -13,8 +15,10 @@ function Router() {
     <React.StrictMode>
       <CookiesProvider>
         <BrowserRouter>
-          <Route exact path='/' component={Auth}/>
+        <Route exact path='/' component={App}/>
+          <Route exact path='/login' component={Auth}/>
           <Route exact path='/movies' component={App}/>
+          <Route exact path='/qrcode' component={QRCode}/>
         </BrowserRouter>
       </CookiesProvider>
     </React.StrictMode>

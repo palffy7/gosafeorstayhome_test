@@ -19,8 +19,12 @@
 
 .layout{
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 20px;
+}
+
+.welcome h2, p {
+  text-align: center;
 }
 
 .login-container {
