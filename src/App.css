@@ -1,16 +1,10 @@
 .App {
   padding: 20px;
   min-height: 100vh;
-  background-color: #282c34;
+  background-color: #116d70;
   color: white;
 }
 
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
 .App-header {
   text-align: center;
@@ -22,6 +16,85 @@
   grid-template-columns: 1fr;
   grid-gap: 20px;
 }
+
+.layout .explanation .stepArrow{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 50px;
+}
+
+.layout .explanation .stepBegin{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 60px;
+}
+
+.layout .explanation .stepLogin{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 70px;
+}
+
+.layout .explanation .stepQrcode{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 70px;
+}
+
+.layout .explanation .stepCheck{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 80px;
+}
+
+.layout .explanation .stepAccept{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 50px;
+}
+
+.layout .explanation .stepCelebrate{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 70px;
+}
+
+.layout .explanation .step5{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 60px;
+}
+
+.layout .explanation .step6{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 60px;
+}
+
+.layout .explanation .step7{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  height: 60px;
+}
+
+.layout .explanation .step .svg{
+  position: relative;
+}
+
+.layout .explanation .step .explanationstepdescription{
+  vertical-align: center;
+}
+
 
 .welcome h2, p {
   text-align: center;
