@@ -15,10 +15,10 @@ function Router() {
     <React.StrictMode>
       <CookiesProvider>
         <BrowserRouter>
-        <Route exact path='/' component={App}/>
-          <Route exact path='/login' component={Auth}/>
-          <Route exact path='/movies' component={App}/>
-          <Route exact path='/qrcode' component={QRCode}/>
+          <Route exact path='/' component={App} />
+          {/*<Route exact path='/login' component={Auth} />
+          <Route exact path='/movies' component={App} />
+  <Route exact path='/qrcode' component={QRCode} />*/}
         </BrowserRouter>
       </CookiesProvider>
     </React.StrictMode>
@@ -26,7 +26,7 @@ function Router() {
 }
 
 ReactDOM.render(
-  <Router/>, document.getElementById('root')
+  <Router />, document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
