@@ -11,6 +11,14 @@
   font-size: calc(10px + 2vmin);
 }
 
+.svgLogo {
+  display: inline-block;
+  overflow: visible;
+  font-size: inherit;
+  width: 1.25em;
+  vertical-align: -0.3em;
+}
+
 .layout{
   display: grid;
   grid-template-columns: 1fr;

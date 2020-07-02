@@ -14,6 +14,7 @@ import { ReactComponent as Check } from './components/svgs/check.svg';
 import { ReactComponent as Accept } from './components/svgs/accept.svg';
 import { ReactComponent as Ballon } from './components/svgs/ballon.svg';
 import { ReactComponent as Stars } from './components/svgs/stars.svg';
+import { ReactComponent as Logo } from './components/svgs/logoPage.svg';
 
 
 function App() {
@@ -34,10 +35,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        {/* <div> */}
         <h1>
-          <FontAwesomeIcon icon={faGlassCheers} />
+          {/* <FontAwesomeIcon icon={faGlassCheers} /> */}
+          <Logo className='svgLogo' transform='translate(0,0) scale(1)'/>
           <span> Go Safe Or Stay Home </span>
         </h1>
+        {/* </div> */}
       </header>
       <div className='layout'>
         <div className='welcome'>
