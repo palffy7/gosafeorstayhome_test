@@ -29,6 +29,14 @@ h5{
   font-weight: normal;
 }
 
+.login {
+  text-align: center;
+}
+
+.button {
+  position: absolute;
+}
+
 .layout .explanation .stepArrow{
   display: grid;
   grid-template-columns: 1fr 1fr;
