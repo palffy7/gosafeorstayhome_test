@@ -46,10 +46,6 @@ h5{
   margin: 0 25%;
 }
 
-.button {
-  position: absolute;
-}
-
 .layout .explanation .stepArrow{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -151,7 +147,7 @@ h5{
   display: block;
 }
 
-input, textarea {
+textarea {
   width: 50%;
   padding: 10px;
   margin: 8px 0;
@@ -166,6 +162,7 @@ button {
   font-weight: bold;
   font-size: 0.8rem;
   outline: none;
+  
 }
 
 button:disabled {
@@ -221,4 +218,36 @@ h1 .fa-film {
   right: 20px; 
   cursor: pointer;
   font-size: 1.5rem;
+}
+
+form {
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+input {
+  display: block;
+  width: 100%;
+}
+
+input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #777;
+  width: 100%;
+  display: inline-block;
+}
+
+input.error {
+  border-color: red;
+}
+
+.input-feedback {
+  color: rgb(235, 54, 54);
+  margin-top: -15px;
+  font-size: 10px;
+  margin-bottom: 20px;
 }
