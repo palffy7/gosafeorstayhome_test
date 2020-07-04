@@ -11,6 +11,11 @@
   font-size: calc(10px + 2vmin);
 }
 
+.App h2 {
+  text-align: center;
+  font-size: 20px;
+}
+
 .svgLogo {
   display: inline-block;
   overflow: visible;
@@ -31,6 +36,14 @@ h5{
 
 .login {
   text-align: center;
+  width: 50%;
+  margin: 0 25%;
+}
+
+.signIn {
+  text-align: center;
+  width: 50%;
+  margin: 0 25%;
 }
 
 .button {
@@ -118,6 +131,8 @@ h5{
 
 .welcome h2, p {
   text-align: center;
+  font-size: 10px;
+  cursor: pointer;
 }
 
 .login-container {
@@ -125,8 +140,19 @@ h5{
   margin: 0 25%;
 }
 
+.QRCode-container {
+  width: 50%;
+  margin: 0 25%;
+}
+
+.QRCode-container canvas {
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+}
+
 input, textarea {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   margin: 8px 0;
   font-size: 0.8rem;
