@@ -147,14 +147,15 @@ h5{
 }
 
 .QRCode-container {
-  width: 50%;
-  margin: 0 25%;
+  width: 80%;
+  margin: 0 10%;
 }
 
 .QRCode-container canvas {
   margin-right: auto;
   margin-left: auto;
   display: block;
+  
 }
 
 textarea {

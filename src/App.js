@@ -240,7 +240,7 @@ function App() {
     } catch (error) {
       var message_filter = errorMessages.filter( message => message.message === error['message'])
       setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
-      setConfirmationFailed(true)
+      // setConfirmationFailed(true)
       console.log('error signing in', error);
     }
   }
@@ -462,12 +462,12 @@ function App() {
                 <p>Viel Spass!</p>
                 <div className='QRCode-container'>
                   {/* <QRCode value="http://facebook.github.io/react/" /> */}
-                  <QRCode value={stringQRCode} />
+                  <QRCode value={stringQRCode} size='300' />
                 </div>
               </div>
             }
           </React.Fragment>}
-        <button onClick={loginClicked}>Login</button>
+        {/* <button onClick={loginClicked}>Login</button> */}
         <div className='explanation-start'>
           <h5>Und so wird's gemacht:</h5>
         </div>
