@@ -37,15 +37,15 @@ Amplify.configure({
   }
 });
 
-const oauth = {
-  domain: "gsosh.auth.eu-central-1.amazoncognito.com",
-  scope: ["email", "profile"],
-  redirectSignIn: "http://localhost:3000",
-  redirectSignOut: "http://localhost:3000",
-  responseType: "code"
-};
+// const oauth = {
+//   domain: "gsosh.auth.eu-central-1.amazoncognito.com",
+//   scope: ["email", "profile"],
+//   redirectSignIn: "http://localhost:3000",
+//   redirectSignOut: "http://localhost:3000",
+//   responseType: "code"
+// };
 
-Auth.configure({ oauth });
+// Auth.configure({ oauth });
 
 
 
@@ -53,13 +53,27 @@ function App() {
 
   var QRCode = require('qrcode.react')
 
+  const errorMessages =[
+    {message: 'Incorrect username or password.', 
+    translation:  'Falsches Passwort oder Benutzername'}, 
+    {message: 'An account with the given email already exists.', 
+    translation:  'Ein Konto mit dieser Email Adresse existiert bereits'},
+    {message: 'Password attempts exceeded', 
+    translation:  'Anzahl Login Versuche überschritten'},
+    {message: 'Invalid verification code provided, please try again.', 
+    translation:  'Falscher Code. Bitte versuche es erneut.'},
+    {message: 'User is not confirmed.', 
+    translation:  'Dein Konto wurde nicht bestätigt. Klicke hier um dein Konto zu besätigen:'}
+  ]
+
   //const [token, , deleteToken] = useCookies(['mr-token'])
   //const [data, loading, error] = useFetch();
   const [signedUp, setSignedUp] = useState(false);
   const [signeUpRequested, setSigneUpRequested] = useState(false);
-  const [confirmed, setConfirmed] = useState(false)
+  const [confirmed, setConfirmed] = useState(false);
+  const [confirmationFailed, setConfirmationFailed] = useState(false);
   const [signedIn, setSignedIn] = useState(false);
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(null);
   const [verificationCode, setVerificationCode] = useState(null);
   const [userData, setUserData] = useState(
     {
@@ -69,20 +83,23 @@ function App() {
       email: '',
       phone_number: ''
     }
-  )
+  );
   const [contentQRCode, setContenQRCode] = useState({
     given_name: '',
     family_name: '',
     email: '',
     phone_number: ''
-  })
-  const [stringQRCode, setStringQRCode] = useState(null)
-  const [generatingQRCode, setGeneratingQRCode] = useState(true)
+  });
+  const [stringQRCode, setStringQRCode] = useState(null);
+  const [generatingQRCode, setGeneratingQRCode] = useState(true);
+  const [formError, setFormError] = useState([false, '']);
 
   // triggers the data after its stored, otherwise user is empty
   useEffect(() => {
+    // if (signedIn & confirmed) { GetUserAttributes() }
+    // console.log('getUserAttributes')
     if (signedIn & confirmed) { GetUserAttributes() }
-  }, [signedIn, confirmed, GetUserAttributes])
+  }, [signedIn, confirmed])
 
   // triggers a new content for the QRCode for gerenating
   useEffect(() => {
@@ -100,6 +117,10 @@ function App() {
     }
   }, [userData])
 
+  // useEffect(() => {
+  //   console.log(formerror)
+  // }, [formerror])
+
   // const loginClicked = () => {
   //   window.location.href = '/login';
   // }
@@ -109,7 +130,7 @@ function App() {
   // }
 
   const loginClicked = (e) => {
-    console.log(userData)
+    console.log(confirmationFailed)
     // console.log(user)
     // console.log(Auth.currentAuthenticatedUser())
     // GetUserAttributes()
@@ -119,15 +140,11 @@ function App() {
     // attr.then(attr.json())
   }
 
-  const test = () => {
-    console.log('test')
-  }
-
   const handleChange = e => {
     const newUserData = userData;
     newUserData[e.target.name] = e.target.value
     setUserData(newUserData);
-    console.log(userData)
+    // console.log(userData)
   }
 
   const handleVerificationCode = e => {
@@ -135,7 +152,11 @@ function App() {
   }
 
   const handleFormikSubmit = (values) => {
+    console.log(values)
+    delete values.passwordcontrol
+    console.log(values)
     setUserData(values);
+
     // document.getElementById('login').reset()
     // if (!signedUp) {
     //   SignUp()
@@ -144,8 +165,9 @@ function App() {
     // }
   }
 
+
   const handleSubmit = e => {
-    console.log('submit')
+    // console.log('submit')
     e.preventDefault();
     document.getElementById('login').reset()
     if (!signedUp) {
@@ -161,9 +183,10 @@ function App() {
     confirmSignUp()
   }
 
-  const changeForm = (e) => {
-    e.preventDefault();
-    setUser(true)
+  const handleNewAccountVerification = e => {
+    VerifyAccount('ralph_amhof@hotmail.com')
+    setSigneUpRequested(true)
+    setSignedIn(false)
   }
 
   async function SignUp() {
@@ -174,8 +197,8 @@ function App() {
         username: userData['email'],
         password: userData['password'],
         attributes: {
-          email: userData['email'],          // optional
-          phone_number: userData['phone_number'],   // optional - E.164 number convention
+          email: userData['email'],
+          phone_number: userData['phone_number'],   // E.164 number convention
           given_name: userData['given_name'],
           family_name: userData['family_name'],
           address: 'none',
@@ -184,6 +207,8 @@ function App() {
       setSigneUpRequested(true)
       console.log({ respuser });
     } catch (error) {
+      var message_filter = errorMessages.filter( message => message.message === error['message'])
+      setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
       console.log('error signing up:', error);
     }
   }
@@ -198,6 +223,8 @@ function App() {
       setConfirmed(true)
       setSignedIn(true);
     } catch (error) {
+      var message_filter = errorMessages.filter( message => message.message === error['message'])
+      setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
       console.log('error confirming sign up', error);
     }
 
@@ -206,10 +233,14 @@ function App() {
   async function SignIn() {
     try {
       const respuser = await Auth.signIn(userData['email'], userData['password']);
+      console.log(respuser)
       setUser(respuser)
       setConfirmed(true)
       setSignedIn(true);
     } catch (error) {
+      var message_filter = errorMessages.filter( message => message.message === error['message'])
+      setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
+      setConfirmationFailed(true)
       console.log('error signing in', error);
     }
   }
@@ -238,6 +269,19 @@ function App() {
     setStringQRCode('startQRCode;' + contentQRCode['given_name'] + ';' + contentQRCode['family_name'] + ';' + contentQRCode['email'] + ';' + contentQRCode['phone_number'] + ';endQRCode')
   }
 
+  async function VerifyAccount(attr) {
+    try {
+      console.log(user)
+      const respuser = await Auth.verifyCurrentUserAttribute(attr);
+      setConfirmed(true)
+      setSignedIn(true);
+    } catch (error) {
+      var message_filter = errorMessages.filter( message => message.message === error['message'])
+      setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
+      console.log('error signing in', error);
+    }
+  }
+
 
   return (
     <div className="App">
@@ -252,8 +296,8 @@ function App() {
       </header>
       <div className='layout'>
         <div className='welcome'>
-          <p>Dein eigener QR Code für den Ausgang</p>
-          <p>Erstelle deinen eigenen QR Code und geniesse deinen Abend</p>
+          <h5>Dein eigener QR Code für den Ausgang</h5>
+          <h5>Erstelle deinen eigenen QR Code und geniesse deinen Abend</h5>
         </div>
         {!signedIn ?
           <React.Fragment>
@@ -262,7 +306,7 @@ function App() {
                 {!signeUpRequested ?
                   <React.Fragment>
                     <Formik
-                      initialValues={{ given_name: '', family_name: '', password: '', email: '', phone_number: '' }}
+                      initialValues={{ given_name: '', family_name: '', password: '', passwordcontrol: '', email: '', phone_number: '' }}
                       onSubmit={(values, { setSubmitting }) => {
                         console.log('formik submitting')
                         handleFormikSubmit(values)
@@ -270,20 +314,23 @@ function App() {
 
                       validationSchema={Yup.object().shape({
                         family_name: Yup.string()
-                          .required('Required'),
+                          .required('Nachname wird benötigt'),
                         given_name: Yup.string()
-                          .required('Required'),
+                          .required('Vorname wird benötigt'),
                         email: Yup.string()
-                          .email()
-                          .required('Required'),
+                          .email('Muss eine gültige Email Adresse sein')
+                          .required('Email wird benötigt'),
                         password: Yup.string()
-                          .required('Required')
-                          .min(8, 'Passwort is too short, must be 8 characters long.')
-                          .matches(/(?=.*[0-9])/, 'Password must contain a number.')
+                          .required('Passwort wird benötigt')
+                          .min(8, 'Passwort zu kurz, muss mindestens 8 Zeichen lang sein')
+                          .matches(/(?=.*[0-9])/, 'Passwort muss eine Zahl enthalten.')
                           .matches(/(?=.*[a-z])/, 'Passwort muss einen Kleinbuchstaben enthalten.')
                           .matches(/(?=.*[A-Z])/, 'Passwort muss einen Grossbuchstaben enthalten.'),
+                        passwordcontrol: Yup.string()
+                          .required('Passwort muss übereinstimmen')
+                          .oneOf([Yup.ref('password'), null], 'Passwort stimmt nicht überein'),
                         phone_number: Yup.string()
-                          .required('Required')
+                          .required('Handynummer wird benötigt')
                           .matches(/(?=.*[+])/, 'Deine Nummer muss ein + enthalten.'),
                       })}
                     >
@@ -303,7 +350,7 @@ function App() {
                             <input
                               type='text'
                               name='given_name'
-                              placeholder='Gib hier deinen Vornamen ein'
+                              placeholder='Vorname'
                               onChange={handleChange}
                               onBlur={handleBlur}
                               className={errors.given_name && touched.given_name && "error"} />
@@ -314,74 +361,77 @@ function App() {
                             <input
                               type='text'
                               name='family_name'
-                              placeholder='Gib deinen Nachnamen ein'
+                              placeholder='Nachnamen'
                               onChange={handleChange}
                               onBlur={handleBlur}
                               className={errors.family_name && touched.family_name && "error"} />
                             {errors.family_name && touched.family_name && (
                               <div className="input-feedback">{errors.family_name}</div>
                             )}
-                            <label>Password</label><br />
+                            <label>Passwort</label><br />
                             <input
                               type='password'
                               name='password'
-                              placeholder='Gib dein Passwort ein'
+                              placeholder='Passwort'
                               onChange={handleChange}
                               onBlur={handleBlur}
                               className={errors.password && touched.password && "error"} />
                             {errors.password && touched.password && (
                               <div className="input-feedback">{errors.password}</div>
                             )}
+                            <label>Passwort Kontrolle</label><br />
+                            <input
+                              type='password'
+                              name='passwordcontrol'
+                              placeholder='Passwort Kontrolle'
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              className={errors.passwordcontrol && touched.passwordcontrol && "error"} />
+                            {errors.passwordcontrol && touched.passwordcontrol && (
+                              <div className="input-feedback">{errors.passwordcontrol}</div>
+                            )}
                             <label>Email</label><br />
                             <input
                               type='text'
                               name='email'
-                              placeholder='Gib deine Email Adresse ein'
+                              placeholder='Email Adresse'
                               onChange={handleChange}
                               onBlur={handleBlur}
                               className={errors.email && touched.email && "error"} />
                             {errors.email && touched.email && (
                               <div className="input-feedback">{errors.email}</div>
                             )}
-                            <label>Phone Number</label><br />
+                            <label>Handynummer</label><br />
                             <input
                               type='tel'
                               name='phone_number'
-                              placeholder='Gib deine Telefonnummer ein im Format +...'
+                              placeholder='Telefonnummer im Format +...'
                               onChange={handleChange}
                               onBlur={handleBlur}
                               className={errors.phone_number && touched.phone_number && "error"} />
                             {errors.phone_number && touched.phone_number && (
                               <div className="input-feedback">{errors.phone_number}</div>
                             )}
-                            <button type='submit' disabled={isSubmitting}>Sign up</button><br />
+                            <div className='submit-button'>
+                              <button type='submit' >Registrieren</button>
+                            </div>
+                            {formError[0] && (
+                              <div className="login-feedback">{formError[1]}</div>
+                            )}
                             <p onClick={() => setSignedUp(true)}>Du hast bereits ein Konto? Melde dich hier an!</p>
                           </form>
                         )
                       }}
                     </Formik>
-
-                    {/* <form id='login' onSubmit={handleSubmit}>
-                      <label>Vorname</label><br />
-                      <input type='text' name='given_name' onChange={handleChange} /><br />
-                      <label>Name</label><br />
-                      <input type='text' name='family_name' onChange={handleChange} /><br />
-                      <label>Password</label><br />
-                      <input type='password' name='password' onChange={handleChange} /><br />
-                      <label>Email</label><br />
-                      <input type='text' name='email' onChange={handleChange} /><br />
-                      <label>Phone Number</label><br />
-                      <input type='tel' name='phone_number' onChange={handleChange} /><br />
-                      <button>Sign up</button><br />
-                      <p onClick={() => setSignedUp(true)}>Du hast bereits ein Konto? Melde dich hier an!</p>
-                    </form> */}
                   </React.Fragment>
                   :
                   <form id='login' onSubmit={handleConfirm}>
-                    <label>Type in Code</label><br />
+                    <label>Gib deinen Code ein</label><br />
                     <input type='text' name='verification_code' onChange={handleVerificationCode} /><br />
-                    <button>Confirm</button><br />
-
+                    <button >Bestätigen</button><br />
+                    {formError[0] && (
+                    <div className="login-feedback">{formError[1]}</div>
+                  )}
                   </form>
                 }
               </div> :
@@ -389,11 +439,18 @@ function App() {
                 <form id='login' onSubmit={handleSubmit}>
                   <label>Email</label><br />
                   <input type='text' name='email' onChange={handleChange} /><br />
-                  <label>Password</label><br />
+                  <label>Passwort</label><br />
                   <input type='password' name='password' onChange={handleChange} /><br />
-                  <button>Sign In</button><br />
+                  <button>Login</button><br />
+                  {formError[0] && (
+                    <div className="login-feedback">{formError[1]}</div>
+                  )}
+                  
                   <p onClick={() => setSignedUp(false)}>Hast du noch kein Konto? Registriere dich hier!</p>
                 </form>
+                {confirmationFailed && (
+                    <div><button onClick={handleNewAccountVerification}>Bestätige deine Kontaktdaten</button></div>
+                  )}
               </div>
             }
           </React.Fragment> :
@@ -410,9 +467,9 @@ function App() {
               </div>
             }
           </React.Fragment>}
-        {/* <button onClick={loginClicked}>Login</button> */}
-        <div>
-          <p>Und so wird's gemacht:</p>
+        <button onClick={loginClicked}>Login</button>
+        <div className='explanation-start'>
+          <h5>Und so wird's gemacht:</h5>
         </div>
         <div className='explanation'>
           <div className='stepBegin'>

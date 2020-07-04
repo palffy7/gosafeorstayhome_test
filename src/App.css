@@ -16,6 +16,16 @@
   font-size: 20px;
 }
 
+.welcome h5 {
+  text-align: center;
+  font-size: 17px;
+}
+
+.explanation-start h5 {
+  text-align: center;
+  font-size: 13px;
+}
+
 .svgLogo {
   display: inline-block;
   overflow: visible;
@@ -162,6 +172,7 @@ button {
   font-weight: bold;
   font-size: 0.8rem;
   outline: none;
+
   
 }
 
@@ -169,6 +180,10 @@ button:disabled {
   color: #f3f3f3;
   background-color: #444;
   cursor: not-allowed;
+}
+
+.submit-button {
+  width: 100%;
 }
 
 .orange {
@@ -234,7 +249,8 @@ input {
 
 input {
   margin-bottom: 20px;
-  padding: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   border-radius: 3px;
   border: 1px solid #777;
   width: 100%;
@@ -248,6 +264,13 @@ input.error {
 .input-feedback {
   color: rgb(235, 54, 54);
   margin-top: -15px;
-  font-size: 10px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.login-feedback {
+  color: rgb(235, 54, 54);
+  margin-top: 5px;
+  font-size: 17px;
   margin-bottom: 20px;
 }
