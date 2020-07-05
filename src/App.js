@@ -284,22 +284,23 @@ function App() {
 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* <div> */}
-        <h1>
-          {/* <FontAwesomeIcon icon={faGlassCheers} /> */}
-          <Logo className='svgLogo' transform='translate(0,0) scale(1)' />
-          <span> Go Safe Or Stay Home </span>
-        </h1>
-        {/* </div> */}
-      </header>
-      <div className='layout'>
-        <div className='welcome'>
-          <h5>Dein eigener QR Code für den Ausgang</h5>
-          <h5>Erstelle deinen eigenen QR Code und geniesse deinen Abend</h5>
-        </div>
-        {/* {!signedIn ?
+    <React.Fragment>
+      <div className="App">
+        <header className="App-header">
+          {/* <div> */}
+          <h1>
+            {/* <FontAwesomeIcon icon={faGlassCheers} /> */}
+            <Logo className='svgLogo' transform='translate(0,0) scale(1)' />
+            <span> Go Safe Or Stay Home </span>
+          </h1>
+          {/* </div> */}
+        </header>
+        <div className='layout'>
+          <div className='welcome'>
+            <h5>Dein eigener QR Code für den Ausgang</h5>
+            <h5>Erstelle deinen eigenen QR Code und geniesse deinen Abend</h5>
+          </div>
+          {/* {!signedIn ?
           <React.Fragment>
             {!signedUp ?
               <div className='login'>
@@ -466,82 +467,83 @@ function App() {
               </div>
             }
           </React.Fragment>} */}
-        {/* <button onClick={loginClicked}>Login</button> */}
-        <div className='explanation-start'>
-          <h5>Und so wird's gemacht:</h5>
+          {/* <button onClick={loginClicked}>Login</button> */}
+          <div className='explanation-start'>
+            <h5>Und so wird's gemacht:</h5>
+          </div>
+          <div className='explanation'>
+            <div className='stepBegin'>
+              <div><h5 style={{ textAlign: 'right' }}>Erstelle dein Konto</h5></div>
+              <div>
+                <Man transform='translate(20,1.5)' />
+                <Woman transform='translate(30,0) scale(0.99)' />
+              </div>
+            </div>
+            <div className='stepArrow'>
+              <div className=''></div>
+              <div >
+                <Arrow className='' transform='translate(65,15)' />
+              </div>
+            </div>
+            <div className='stepLogin'>
+              <div className=''><h5 style={{ textAlign: 'right' }}>Bestätige deine Daten</h5></div>
+              <div>
+                <Login className='' transform='translate(43,0) scale(0.8)' />
+              </div>
+            </div>
+            <div className='stepArrow'>
+              <div className=''></div>
+              <div>
+                <Arrow className='' transform='translate(65,10)' />
+              </div>
+            </div>
+            <div className='stepQrcode'>
+              <div className=''><h5 style={{ textAlign: 'right' }}>Für dich wird ein QR Code erstellt</h5></div>
+              <div>
+                <Qrcode className='' transform='translate(43,0) scale(0.8)' />
+              </div>
+            </div>
+            <div className='stepArrow'>
+              <div className=''></div>
+              <div>
+                <Arrow className='' transform='translate(65,10)' />
+              </div>
+            </div>
+            <div className='stepCheck'>
+              <div className=''><h5 style={{ textAlign: 'right' }}>Zeige den QR Code beim Eintritt zusammen mit deiner ID</h5></div>
+              <div>
+                <Check className='' transform='translate(0,0) scale(0.8)' />
+              </div>
+            </div>
+            <div className='stepArrow'>
+              <div className=''></div>
+              <div>
+                <Arrow className='' transform='translate(65,0)' />
+              </div>
+            </div>
+            <div className='stepAccept'>
+              <div className=''><h5 style={{ textAlign: 'right' }}>Deine Angaben werden verglichen</h5></div>
+              <div>
+                <Accept className='' transform='translate(54,0) scale(0.8)' />
+              </div>
+            </div>
+            <div className='stepArrow'>
+              <div className=''></div>
+              <div>
+                <Arrow className='' transform='translate(65,15)' />
+              </div>
+            </div>
+            <div className='stepCelebrate'>
+              <div className=''><h5 style={{ textAlign: 'right' }}>Wir wünschen dir einen schönen Abend</h5></div>
+              <div>
+                <Stars className='Arrow2' transform='translate(20,5) scale(0.8)' />
+                <Ballon className='Arrow2' transform='translate(20,0) scale(0.8)' />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className='explanation'>
-          <div className='stepBegin'>
-            <div><h5 style={{ textAlign: 'right' }}>Erstelle dein Konto</h5></div>
-            <div>
-              <Man transform='translate(20,1.5)' />
-              <Woman transform='translate(30,0) scale(0.99)' />
-            </div>
-          </div>
-          <div className='stepArrow'>
-            <div className=''></div>
-            <div >
-              <Arrow className='' transform='translate(65,15)' />
-            </div>
-          </div>
-          <div className='stepLogin'>
-            <div className=''><h5 style={{ textAlign: 'right' }}>Bestätige deine Daten</h5></div>
-            <div>
-              <Login className='' transform='translate(43,0) scale(0.8)' />
-            </div>
-          </div>
-          <div className='stepArrow'>
-            <div className=''></div>
-            <div>
-              <Arrow className='' transform='translate(65,10)' />
-            </div>
-          </div>
-          <div className='stepQrcode'>
-            <div className=''><h5 style={{ textAlign: 'right' }}>Für dich wird ein QR Code erstellt</h5></div>
-            <div>
-              <Qrcode className='' transform='translate(43,0) scale(0.8)' />
-            </div>
-          </div>
-          <div className='stepArrow'>
-            <div className=''></div>
-            <div>
-              <Arrow className='' transform='translate(65,10)' />
-            </div>
-          </div>
-          <div className='stepCheck'>
-            <div className=''><h5 style={{ textAlign: 'right' }}>Zeige den QR Code beim Eintritt zusammen mit deiner ID</h5></div>
-            <div>
-              <Check className='' transform='translate(0,0) scale(0.8)' />
-            </div>
-          </div>
-          <div className='stepArrow'>
-            <div className=''></div>
-            <div>
-              <Arrow className='' transform='translate(65,0)' />
-            </div>
-          </div>
-          <div className='stepAccept'>
-            <div className=''><h5 style={{ textAlign: 'right' }}>Deine Angaben werden verglichen</h5></div>
-            <div>
-              <Accept className='' transform='translate(54,0) scale(0.8)' />
-            </div>
-          </div>
-          <div className='stepArrow'>
-            <div className=''></div>
-            <div>
-              <Arrow className='' transform='translate(65,15)' />
-            </div>
-          </div>
-          <div className='stepCelebrate'>
-            <div className=''><h5 style={{ textAlign: 'right' }}>Wir wünschen dir einen schönen Abend</h5></div>
-            <div>
-              <Stars className='Arrow2' transform='translate(20,5) scale(0.8)' />
-              <Ballon className='Arrow2' transform='translate(20,0) scale(0.8)' />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div >
+      </div >
+    </React.Fragment>
   );
 }
 
