@@ -3,7 +3,7 @@ import React from 'react';
 // import * as Yup from 'yup';
 import './App.css';
 // import { useCookies } from 'react-cookie';
-import Amplify from 'aws-amplify';
+// import Amplify from 'aws-amplify';
 // import QRCode from 'qrcode.react'
 import { ReactComponent as Man } from './components/svgs/man.svg';
 import { ReactComponent as Woman } from './components/svgs/woman.svg';
@@ -16,26 +16,26 @@ import { ReactComponent as Ballon } from './components/svgs/ballon.svg';
 import { ReactComponent as Stars } from './components/svgs/stars.svg';
 import { ReactComponent as Logo } from './components/svgs/logoPage.svg';
 
-Amplify.configure({
-  Auth: {
+// Amplify.configure({
+//   Auth: {
 
-    // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
-    identityPoolId: 'eu-central-1:6d0faa63-5f3f-4616-bf3d-f2d6b199e564',
+//     // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
+//     identityPoolId: 'eu-central-1:6d0faa63-5f3f-4616-bf3d-f2d6b199e564',
 
-    // REQUIRED - Amazon Cognito Region
-    region: 'eu-central-1',
+//     // REQUIRED - Amazon Cognito Region
+//     region: 'eu-central-1',
 
-    // OPTIONAL - Amazon Cognito Federated Identity Pool Region 
-    // Required only if it's different from Amazon Cognito Region
-    identityPoolRegion: 'eu-central-1',
+//     // OPTIONAL - Amazon Cognito Federated Identity Pool Region 
+//     // Required only if it's different from Amazon Cognito Region
+//     identityPoolRegion: 'eu-central-1',
 
-    // OPTIONAL - Amazon Cognito User Pool ID
-    userPoolId: 'eu-central-1_mA7oi9fFZ',
+//     // OPTIONAL - Amazon Cognito User Pool ID
+//     userPoolId: 'eu-central-1_mA7oi9fFZ',
 
-    // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
-    userPoolWebClientId: '7hskrl3g7nb2t9m44v0ojujlsm',
-  }
-});
+//     // OPTIONAL - Amazon Cognito Web Client ID (26-char alphanumeric string)
+//     userPoolWebClientId: '7hskrl3g7nb2t9m44v0ojujlsm',
+//   }
+// });
 
 // const oauth = {
 //   domain: "gsosh.auth.eu-central-1.amazoncognito.com",
