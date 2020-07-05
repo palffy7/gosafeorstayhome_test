@@ -107,7 +107,7 @@ function App() {
   }, [stringQRCode])
 
   useEffect(() => {
-    document.getElementById('login').reset()
+    // document.getElementById('login').reset()
     if (userData['email']) {
       if (!signedUp) {
         SignUp()
@@ -299,7 +299,7 @@ function App() {
           <h5>Dein eigener QR Code für den Ausgang</h5>
           <h5>Erstelle deinen eigenen QR Code und geniesse deinen Abend</h5>
         </div>
-        {!signedIn ?
+        {/* {!signedIn ?
           <React.Fragment>
             {!signedUp ?
               <div className='login'>
@@ -461,13 +461,12 @@ function App() {
                 <p>Zeige ihn beim Eintritt zusammen mit deiner ID oder Pass.</p>
                 <p>Viel Spass!</p>
                 <div className='QRCode-container'>
-                  {/* <QRCode value="http://facebook.github.io/react/" /> */}
                   <QRCode value={stringQRCode} />
                 </div>
               </div>
             }
-          </React.Fragment>}
-        {/* <button onClick={loginClicked}>Login</button> */}
+          </React.Fragment>} */}
+        <button onClick={loginClicked}>Login</button>
         <div className='explanation-start'>
           <h5>Und so wird's gemacht:</h5>
         </div>
