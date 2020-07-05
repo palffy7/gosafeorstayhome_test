@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "gsosh",
+  "name": "gsosh authentification service",
   "icons": [
     {
       "src": "favicon.ico",
