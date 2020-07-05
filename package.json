@@ -21,7 +21,7 @@
     "react-scripts": "3.4.1",
     "yup": "^0.29.1"
   },
-  "homepage": "https://develop.d3vfetvgca6js0.amplifyapp.com/",
+  "homepage": "https://palffy7.github.io/gosafeorstayhome/",
   "scripts": {
     "predeploy":"npm run build",
     "deploy": "gh-pages -d build",
