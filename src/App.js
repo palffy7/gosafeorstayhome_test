@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Formik } from 'formik';
-import * as Yup from 'yup';
+import React from 'react';
+// import { Formik } from 'formik';
+// import * as Yup from 'yup';
 import './App.css';
 // import { useCookies } from 'react-cookie';
-import Amplify, { Auth } from 'aws-amplify';
+import Amplify from 'aws-amplify';
 // import QRCode from 'qrcode.react'
 import { ReactComponent as Man } from './components/svgs/man.svg';
 import { ReactComponent as Woman } from './components/svgs/woman.svg';
@@ -51,236 +51,236 @@ Amplify.configure({
 
 function App() {
 
-  var QRCode = require('qrcode.react')
+  // var QRCode = require('qrcode.react')
 
-  const errorMessages =[
-    {message: 'Incorrect username or password.', 
-    translation:  'Falsches Passwort oder Benutzername'}, 
-    {message: 'An account with the given email already exists.', 
-    translation:  'Ein Konto mit dieser Email Adresse existiert bereits'},
-    {message: 'Password attempts exceeded', 
-    translation:  'Anzahl Login Versuche überschritten'},
-    {message: 'Invalid verification code provided, please try again.', 
-    translation:  'Falscher Code. Bitte versuche es erneut.'},
-    {message: 'User is not confirmed.', 
-    translation:  'Dein Konto wurde nicht bestätigt. Klicke hier um dein Konto zu besätigen:'}
-  ]
+  // const errorMessages =[
+  //   {message: 'Incorrect username or password.', 
+  //   translation:  'Falsches Passwort oder Benutzername'}, 
+  //   {message: 'An account with the given email already exists.', 
+  //   translation:  'Ein Konto mit dieser Email Adresse existiert bereits'},
+  //   {message: 'Password attempts exceeded', 
+  //   translation:  'Anzahl Login Versuche überschritten'},
+  //   {message: 'Invalid verification code provided, please try again.', 
+  //   translation:  'Falscher Code. Bitte versuche es erneut.'},
+  //   {message: 'User is not confirmed.', 
+  //   translation:  'Dein Konto wurde nicht bestätigt. Klicke hier um dein Konto zu besätigen:'}
+  // ]
 
   //const [token, , deleteToken] = useCookies(['mr-token'])
   //const [data, loading, error] = useFetch();
-  const [signedUp, setSignedUp] = useState(false);
-  const [signeUpRequested, setSigneUpRequested] = useState(false);
-  const [confirmed, setConfirmed] = useState(false);
-  const [confirmationFailed, setConfirmationFailed] = useState(false);
-  const [signedIn, setSignedIn] = useState(false);
-  const [user, setUser] = useState(null);
-  const [verificationCode, setVerificationCode] = useState(null);
-  const [userData, setUserData] = useState(
-    {
-      given_name: '',
-      family_name: '',
-      password: '',
-      email: '',
-      phone_number: ''
-    }
-  );
-  const [contentQRCode, setContenQRCode] = useState({
-    given_name: '',
-    family_name: '',
-    email: '',
-    phone_number: ''
-  });
-  const [stringQRCode, setStringQRCode] = useState(null);
-  const [generatingQRCode, setGeneratingQRCode] = useState(true);
-  const [formError, setFormError] = useState([false, '']);
+  // const [signedUp, setSignedUp] = useState(false);
+  // const [signeUpRequested, setSigneUpRequested] = useState(false);
+  // const [confirmed, setConfirmed] = useState(false);
+  // const [confirmationFailed, setConfirmationFailed] = useState(false);
+  // const [signedIn, setSignedIn] = useState(false);
+  // const [user, setUser] = useState(null);
+  // const [verificationCode, setVerificationCode] = useState(null);
+  // const [userData, setUserData] = useState(
+  //   {
+  //     given_name: '',
+  //     family_name: '',
+  //     password: '',
+  //     email: '',
+  //     phone_number: ''
+  //   }
+  // );
+  // const [contentQRCode, setContenQRCode] = useState({
+  //   given_name: '',
+  //   family_name: '',
+  //   email: '',
+  //   phone_number: ''
+  // });
+  // const [stringQRCode, setStringQRCode] = useState(null);
+  // const [generatingQRCode, setGeneratingQRCode] = useState(true);
+  // const [formError, setFormError] = useState([false, '']);
 
   // triggers the data after its stored, otherwise user is empty
-  useEffect(() => {
-    // if (signedIn & confirmed) { GetUserAttributes() }
-    // console.log('getUserAttributes')
-    if (signedIn & confirmed) { GetUserAttributes() }
-  }, [signedIn, confirmed])
+  // useEffect(() => {
+  //   // if (signedIn & confirmed) { GetUserAttributes() }
+  //   // console.log('getUserAttributes')
+  //   if (signedIn & confirmed) { GetUserAttributes() }
+  // }, [signedIn, confirmed])
 
-  // triggers a new content for the QRCode for gerenating
-  useEffect(() => {
-    if (stringQRCode) { setGeneratingQRCode(false) }
-  }, [stringQRCode])
-
-  useEffect(() => {
-    // document.getElementById('login').reset()
-    if (userData['email']) {
-      if (!signedUp) {
-        SignUp()
-      } else {
-        SignIn()
-      }
-    }
-  }, [userData])
+  // // triggers a new content for the QRCode for gerenating
+  // useEffect(() => {
+  //   if (stringQRCode) { setGeneratingQRCode(false) }
+  // }, [stringQRCode])
 
   // useEffect(() => {
-  //   console.log(formerror)
-  // }, [formerror])
+  //   // document.getElementById('login').reset()
+  //   if (userData['email']) {
+  //     if (!signedUp) {
+  //       SignUp()
+  //     } else {
+  //       SignIn()
+  //     }
+  //   }
+  // }, [userData])
 
-  // const loginClicked = () => {
-  //   window.location.href = '/login';
+  // // useEffect(() => {
+  // //   console.log(formerror)
+  // // }, [formerror])
+
+  // // const loginClicked = () => {
+  // //   window.location.href = '/login';
+  // // }
+
+  // // const logoutUser = () => {
+  // //   deleteToken(['mr-token']);
+  // // }
+
+  // const loginClicked = (e) => {
+  //   console.log(confirmationFailed)
+  //   // console.log(user)
+  //   // console.log(Auth.currentAuthenticatedUser())
+  //   // GetUserAttributes()
+
+  //   // var attr = Auth.userAttributes(user)
+  //   // console.log(attr.data)
+  //   // attr.then(attr.json())
   // }
 
-  // const logoutUser = () => {
-  //   deleteToken(['mr-token']);
+  // const handleChange = e => {
+  //   const newUserData = userData;
+  //   newUserData[e.target.name] = e.target.value
+  //   setUserData(newUserData);
+  //   // console.log(userData)
   // }
 
-  const loginClicked = (e) => {
-    console.log(confirmationFailed)
-    // console.log(user)
-    // console.log(Auth.currentAuthenticatedUser())
-    // GetUserAttributes()
+  // const handleVerificationCode = e => {
+  //   setVerificationCode(e.target.value);
+  // }
 
-    // var attr = Auth.userAttributes(user)
-    // console.log(attr.data)
-    // attr.then(attr.json())
-  }
+  // const handleFormikSubmit = (values) => {
+  //   console.log(values)
+  //   delete values.passwordcontrol
+  //   console.log(values)
+  //   setUserData(values);
 
-  const handleChange = e => {
-    const newUserData = userData;
-    newUserData[e.target.name] = e.target.value
-    setUserData(newUserData);
-    // console.log(userData)
-  }
-
-  const handleVerificationCode = e => {
-    setVerificationCode(e.target.value);
-  }
-
-  const handleFormikSubmit = (values) => {
-    console.log(values)
-    delete values.passwordcontrol
-    console.log(values)
-    setUserData(values);
-
-    // document.getElementById('login').reset()
-    // if (!signedUp) {
-    //   SignUp()
-    // } else {
-    //   SignIn()
-    // }
-  }
+  //   // document.getElementById('login').reset()
+  //   // if (!signedUp) {
+  //   //   SignUp()
+  //   // } else {
+  //   //   SignIn()
+  //   // }
+  // }
 
 
-  const handleSubmit = e => {
-    // console.log('submit')
-    e.preventDefault();
-    document.getElementById('login').reset()
-    if (!signedUp) {
-      SignUp()
-    } else {
-      SignIn()
-    }
-  }
+  // const handleSubmit = e => {
+  //   // console.log('submit')
+  //   e.preventDefault();
+  //   document.getElementById('login').reset()
+  //   if (!signedUp) {
+  //     SignUp()
+  //   } else {
+  //     SignIn()
+  //   }
+  // }
 
-  const handleConfirm = e => {
-    e.preventDefault();
-    document.getElementById('login').reset()
-    confirmSignUp()
-  }
+  // const handleConfirm = e => {
+  //   e.preventDefault();
+  //   document.getElementById('login').reset()
+  //   confirmSignUp()
+  // }
 
-  const handleNewAccountVerification = e => {
-    VerifyAccount('ralph_amhof@hotmail.com')
-    setSigneUpRequested(true)
-    setSignedIn(false)
-  }
+  // const handleNewAccountVerification = e => {
+  //   VerifyAccount('ralph_amhof@hotmail.com')
+  //   setSigneUpRequested(true)
+  //   setSignedIn(false)
+  // }
 
-  async function SignUp() {
-    console.log('signup')
-    console.log(userData)
-    try {
-      var respuser = await Auth.signUp({
-        username: userData['email'],
-        password: userData['password'],
-        attributes: {
-          email: userData['email'],
-          phone_number: userData['phone_number'],   // E.164 number convention
-          given_name: userData['given_name'],
-          family_name: userData['family_name'],
-          address: 'none',
-        }
-      });
-      setSigneUpRequested(true)
-      console.log({ respuser });
-    } catch (error) {
-      var message_filter = errorMessages.filter( message => message.message === error['message'])
-      setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
-      console.log('error signing up:', error);
-    }
-  }
+  // async function SignUp() {
+  //   console.log('signup')
+  //   console.log(userData)
+  //   try {
+  //     var respuser = await Auth.signUp({
+  //       username: userData['email'],
+  //       password: userData['password'],
+  //       attributes: {
+  //         email: userData['email'],
+  //         phone_number: userData['phone_number'],   // E.164 number convention
+  //         given_name: userData['given_name'],
+  //         family_name: userData['family_name'],
+  //         address: 'none',
+  //       }
+  //     });
+  //     setSigneUpRequested(true)
+  //     console.log({ respuser });
+  //   } catch (error) {
+  //     var message_filter = errorMessages.filter( message => message.message === error['message'])
+  //     setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
+  //     console.log('error signing up:', error);
+  //   }
+  // }
 
-  async function confirmSignUp() {
-    try {
-      await Auth.confirmSignUp(userData['email'], verificationCode);
-      const respuser = await Auth.signIn(userData['email'], userData['password']);
-      console.log('conf')
-      console.log(respuser)
-      setUser(respuser)
-      setConfirmed(true)
-      setSignedIn(true);
-    } catch (error) {
-      var message_filter = errorMessages.filter( message => message.message === error['message'])
-      setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
-      console.log('error confirming sign up', error);
-    }
+  // async function confirmSignUp() {
+  //   try {
+  //     await Auth.confirmSignUp(userData['email'], verificationCode);
+  //     const respuser = await Auth.signIn(userData['email'], userData['password']);
+  //     console.log('conf')
+  //     console.log(respuser)
+  //     setUser(respuser)
+  //     setConfirmed(true)
+  //     setSignedIn(true);
+  //   } catch (error) {
+  //     var message_filter = errorMessages.filter( message => message.message === error['message'])
+  //     setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
+  //     console.log('error confirming sign up', error);
+  //   }
 
-  }
+  // }
 
-  async function SignIn() {
-    try {
-      const respuser = await Auth.signIn(userData['email'], userData['password']);
-      console.log(respuser)
-      setUser(respuser)
-      setConfirmed(true)
-      setSignedIn(true);
-    } catch (error) {
-      var message_filter = errorMessages.filter( message => message.message === error['message'])
-      setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
-      // setConfirmationFailed(true)
-      console.log('error signing in', error);
-    }
-  }
+  // async function SignIn() {
+  //   try {
+  //     const respuser = await Auth.signIn(userData['email'], userData['password']);
+  //     console.log(respuser)
+  //     setUser(respuser)
+  //     setConfirmed(true)
+  //     setSignedIn(true);
+  //   } catch (error) {
+  //     var message_filter = errorMessages.filter( message => message.message === error['message'])
+  //     setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
+  //     // setConfirmationFailed(true)
+  //     console.log('error signing in', error);
+  //   }
+  // }
 
-  async function GetUserAttributes() {
-    // const userattr = null
-    console.log('getuserattr')
-    console.log(user)
-    try {
-      var userattr = await Auth.userAttributes(user)
-    } catch (error) {
-      console.log('error fetching user attributes', error);
-    }
-    SetLocalUserAttribute(userattr)
-  }
+  // async function GetUserAttributes() {
+  //   // const userattr = null
+  //   console.log('getuserattr')
+  //   console.log(user)
+  //   try {
+  //     var userattr = await Auth.userAttributes(user)
+  //   } catch (error) {
+  //     console.log('error fetching user attributes', error);
+  //   }
+  //   SetLocalUserAttribute(userattr)
+  // }
 
-  const SetLocalUserAttribute = (userattr) => {
-    // console.log('set')
-    // console.log(userattr)
-    const newContentQRCode = contentQRCode;
-    newContentQRCode['given_name'] = userattr[5]['Value']
-    newContentQRCode['family_name'] = userattr[6]['Value']
-    newContentQRCode['email'] = userattr[7]['Value']
-    newContentQRCode['phone_number'] = userattr[4]['Value']
-    setContenQRCode(newContentQRCode)
-    setStringQRCode('startQRCode;' + contentQRCode['given_name'] + ';' + contentQRCode['family_name'] + ';' + contentQRCode['email'] + ';' + contentQRCode['phone_number'] + ';endQRCode')
-  }
+  // const SetLocalUserAttribute = (userattr) => {
+  //   // console.log('set')
+  //   // console.log(userattr)
+  //   const newContentQRCode = contentQRCode;
+  //   newContentQRCode['given_name'] = userattr[5]['Value']
+  //   newContentQRCode['family_name'] = userattr[6]['Value']
+  //   newContentQRCode['email'] = userattr[7]['Value']
+  //   newContentQRCode['phone_number'] = userattr[4]['Value']
+  //   setContenQRCode(newContentQRCode)
+  //   setStringQRCode('startQRCode;' + contentQRCode['given_name'] + ';' + contentQRCode['family_name'] + ';' + contentQRCode['email'] + ';' + contentQRCode['phone_number'] + ';endQRCode')
+  // }
 
-  async function VerifyAccount(attr) {
-    try {
-      console.log(user)
-      const respuser = await Auth.verifyCurrentUserAttribute(attr);
-      setConfirmed(true)
-      setSignedIn(true);
-    } catch (error) {
-      var message_filter = errorMessages.filter( message => message.message === error['message'])
-      setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
-      console.log('error signing in', error);
-    }
-  }
+  // async function VerifyAccount(attr) {
+  //   try {
+  //     console.log(user)
+  //     const respuser = await Auth.verifyCurrentUserAttribute(attr);
+  //     setConfirmed(true)
+  //     setSignedIn(true);
+  //   } catch (error) {
+  //     var message_filter = errorMessages.filter( message => message.message === error['message'])
+  //     setFormError([true, message_filter.length > 0 ? message_filter[0].translation : error['message']]);
+  //     console.log('error signing in', error);
+  //   }
+  // }
 
 
   return (
@@ -466,7 +466,7 @@ function App() {
               </div>
             }
           </React.Fragment>} */}
-        <button onClick={loginClicked}>Login</button>
+        {/* <button onClick={loginClicked}>Login</button> */}
         <div className='explanation-start'>
           <h5>Und so wird's gemacht:</h5>
         </div>
